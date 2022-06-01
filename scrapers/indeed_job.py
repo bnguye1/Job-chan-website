@@ -56,7 +56,7 @@ def extract_data(url):
 
 def start_scraping():
     # Grab jobs from the first 5 pages in the search
-    for i in range(0, 50, 10):
+    for i in range(0, 70, 10):
         search = sys.argv[1]
         search = search.replace('_', ' ')
         # url = get_url('software engineer', 'maryland', i)
