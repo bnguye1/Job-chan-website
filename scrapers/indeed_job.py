@@ -6,7 +6,6 @@ import csv
 import requests
 import re
 import sys
-import os
 
 
 def get_url(position, location, page):
@@ -30,7 +29,6 @@ def extract_data(url):
 
             company = card.find("span", attrs='companyName').text
             location = card.find("div", attrs={'class': 'company_location'}).div.text
-            # description = card.find("div", attrs={"class": 'job-snippet'}).text.strip()
 
             # Get the job salary if it exists
             try:
@@ -65,15 +63,15 @@ def start_scraping():
         job_list = extract_data(url)
 
         # The file doesn't exist
-        if not Path('results.csv').is_file():
-            with open('results.csv', 'w', newline='') as f:
+        if not Path('../results.csv').is_file():
+            with open('../results.csv', 'w', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow(['JobTitle', 'Company', 'Location', 'Salary', 'PostDate', 'ExtractDate', 'JobURL'])
                 writer.writerows(job_list)
 
         # The file exists
         else:
-            with open('results.csv', 'a', newline='') as f:
+            with open('../results.csv', 'a', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerows(job_list)
 
@@ -82,9 +80,5 @@ def start_scraping():
 
 # Removes the duplicates from the job list
 def cleanse_csv():
-    with open('results.csv', 'r') as f, open('clean_results.csv', 'w') as out:
+    with open('../results.csv', 'r') as f, open('clean_results.csv', 'w') as out:
         out.writelines(unique_everseen(f))
-
-
-if __name__ == "__main__":
-    start_scraping()
