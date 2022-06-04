@@ -11,6 +11,11 @@ def home():
 def register():
     if request.method == 'POST':
         # email = request.form['email']
+        # password = request.form['password']
+
+        # user = User(set_password(password), email=email)
+        # db.session.add(user)
+        # db.session.commit()
         pass
 
     else:

@@ -30,18 +30,6 @@ class Job(db.Model):
     updated_date = db.Column(db.DateTime, nullable=False)
     job_link = db.Column(db.String, nullable=False)
 
-    # def __init__(self, id, title, company, location, salary, post_date, updated_date, link):
-    #     self.job_id = id
-    #     self.job_title = title
-    #     self.company = company
-    #     self.location = location
-    #     self.salary = salary
-    #     self.post_date = post_date
-    #     self.updated_date = updated_date
-    #     self.job_link = link
-    #
-
-
 @login.user_loader
 def load_user(ids):
     return User.query.get(int(ids))

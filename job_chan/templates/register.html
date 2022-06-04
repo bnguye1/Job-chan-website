@@ -26,11 +26,76 @@
             min-height: 100vh;
             width: 100%;
             overflow: hidden;
-            background-color: #171717;
+            background-color: #101010;
+
+        }
+        .control-label {
+            color: #fff;
+            margin: 0 auto;
+        }
+        .register {
+            border: none;
+            outline: none;
+            height: 50px;
+            width: 100%;
+            background-image: linear-gradient(to bottom, #2E34C1, #282D85);
+            color: white;
+            border-radius: 5px
+        }
+        .inputBox {
+            border: none;
+            outline: solid 1px #8A8A8A;
+            height: 50px;
+            width: 100%;
+            background: #171717;
+            border-radius: 5px;
+            color: white;
+            padding: 20px;
+        }
+        .inputBox:focus-within {
+            background: #171717;
+
+            outline: solid 2px #2E34BB;
+        }
+        .title {
+            color: #fff;
+            padding: 20px;
+        }
+        .link {
+            text-decoration: none;
+            color: #2E34BB;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            transform: translateY(50%);
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="col-lg-6 px-5">
+            <h2 class="title">Sign Up</h2>
+            <form id="register-form" class="register-form" method="post">
+                <div class="form-row">
+                    <label for="email" class="control-label">E-mail Address</label>
+                    <input type="text" placeholder="example@gmail.com" name="email" class="my-2 inputBox" id="email">
+                </div>
+                <div class="form-row">
+                    <label for="email" class="control-label">Password</label>
+                    <input type="text" placeholder="Pick a strong password" name="password" class="my-2 inputBox" id="password">
+                </div>
+                <div class="form-row">
+                    <input type="text" placeholder="Confirm password" name="password_confirm" class="my-2 inputBox" id="password_confirm">
+                </div>
+                <button type="submit" class="register font-weight-bold my-4" id="registerButton">Create Account</button>
+            </form>
 
+            <p style="color: #9D9D9D; text-align: center; font-size: 18px;">Already have an account?  <a href="http://127.0.0.1:5000/register/" class="link">Log in</a></p>
+        </div>
+    </div>
 </body>
 </html>
