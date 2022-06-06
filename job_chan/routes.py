@@ -1,34 +1,57 @@
 from job_chan import app
-from job_chan.models import User, Job
-from flask import request, render_template, session, redirect
+from job_chan.models import User, Job, load_user
+from flask import render_template, session, redirect, url_for
+from .forms import RegistrationForm, LoginForm
+from . import db, login_manager
+from flask_login import login_required, logout_user, current_user
 
-@app.route('/')
+
+@app.route('/home')
 def home():
     return render_template('home.html')
 
 
+# Works, do not touch
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    if request.method == 'POST':
-        # email = request.form['email']
-        # password = request.form['password']
+    form = RegistrationForm()
+    message = ""
+    if form.validate_on_submit():
+        some_user = User.query.filter_by(email=form.email.data).first()
+        if not some_user:
+            if form.password.data == form.confirm_password.data:
+                user = User(email=form.email.data, password=form.password.data)
+                db.session.add(user)
+                db.session.commit()
+                return redirect(url_for('login'))
 
-        # user = User(set_password(password), email=email)
-        # db.session.add(user)
-        # db.session.commit()
-        pass
+        else:
+            message = "A user associated with that email already exists!"
 
-    else:
-        return render_template('register.html')
+    return render_template('register.html', form=form, message=message)
 
 
+# Isn't working entirely at all
+# TTODO: Implement authentication backend
 @app.route('/login', methods=['POST', 'GET'])
+@login_manager.user_loader
 def login():
-    if request.method == 'POST':
-        # email = request.form['email']
-        # username = request.form['username']
-        # password = request.form['password']
-        pass
+    form = LoginForm()
+    if form.validate_on_submit():
+        some_user = User.query.filter_by(email=form.email.data).first()
+        if some_user.check_password(form.password.data):
+            load_user(some_user.id)
+            data = some_user
+            return render_template('home.html', data=data)
 
+    return render_template('login.html', form=form)
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    if current_user.is_authenticated:
+        logout_user()
+        return redirect(url_for('logout'))
     else:
-        return render_template('login.html')
+        return redirect(url_for('login'))
+

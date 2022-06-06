@@ -8,11 +8,11 @@ login = LoginManager()
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     password_hash = db.Column(db.String, nullable=False)
 
-    def set_password(self, password):
+    def __init__(self, email, password):
+        self.email = email
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
@@ -29,6 +29,7 @@ class Job(db.Model):
     post_date = db.Column(db.String, nullable=False)
     updated_date = db.Column(db.DateTime, nullable=False)
     job_link = db.Column(db.String, nullable=False)
+
 
 @login.user_loader
 def load_user(ids):

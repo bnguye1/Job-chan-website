@@ -109,20 +109,37 @@
                 </a>
                 <!-- <span class="tooltip">Search Job</span> -->
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-heart'></i>
-                    <span class="link_name">Saved Jobs</span>
-                </a>
-                <!-- <span class="tooltip">Saved Jobs</span> -->
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-user'></i>
-                    <span class="link_name">Profile</span>
-                </a>
-                <!-- <span class="tooltip">Profile</span> -->
-            </li>
+            {% if data %}
+                <li>
+                    <a href="#">
+                        <i class='bx bx-heart'></i>
+                        <span class="link_name">Saved Jobs</span>
+                    </a>
+                    <!-- <span class="tooltip">Saved Jobs</span> -->
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-user'></i>
+                        <span class="link_name">Profile</span>
+                    </a>
+                    <!-- <span class="tooltip">Profile</span> -->
+                </li>
+                <li>
+                    <a href="{{ url_for('logout') }}">
+                        <i class='bx bx-exit'></i>
+                        <span class="link_name">Logout</span>
+                    </a>
+                    <!-- <span class="tooltip">Profile</span> -->
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ url_for('login') }}">
+                        <i class='bx bx-exit'></i>
+                        <span class="link_name">Login</span>
+                    </a>
+                    <!-- <span class="tooltip">Profile</span> -->
+                </li>
+            {% endif %}
         </ul>
     </div>
 </body>

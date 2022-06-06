@@ -4,8 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1">
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -25,9 +25,8 @@
             position: relative;
             min-height: 100vh;
             width: 100%;
-            overflow: hidden;
+            overflow: visible;
             background-color: #101010;
-
         }
         .control-label {
             color: #fff;
@@ -57,45 +56,68 @@
 
             outline: solid 2px #2E34BB;
         }
-        .title {
-            color: #fff;
-            padding: 20px;
-        }
         .link {
             text-decoration: none;
             color: #2E34BB;
             font-weight: bold;
             font-size: 18px;
         }
+        .label {
+            color: #fff;
+            display: inline-block;
+            text-align: left;
+            float: left;
+            padding-top: 20px;
+        }
+        .col-lg {
+            width: 400px;
+        }
         .container {
+            height: 100%;
             display: flex;
             justify-content: center;
-            text-align: center;
-            transform: translateY(50%);
+            align-items: center;
+            padding: 190px 0;
         }
+        .title {
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="col-lg-6 px-5">
-            <h2 class="title">Sign Up</h2>
-            <form id="register-form" class="register-form" method="post">
-                <div class="form-row">
-                    <label for="email" class="control-label">E-mail Address</label>
-                    <input type="text" placeholder="example@gmail.com" name="email" class="my-2 inputBox" id="email">
+    {% block content %}
+        <div class="container">
+            <form method="post" action="">
+                {{ form.hidden_tag() }}
+                <div class="col-lg">
+                    <h2 class="title">Sign Up</h2>
+                    <fieldset class="form-group">
+                        <div class="form-row">
+                            <div class="label">
+                                {{ form.email.label }}
+                            </div>
+                            {{ form.email(class="my-2 inputBox", placeholder="example@gmail.com") }}
+                        </div>
+                        <div class="form-row">
+                            <div class="label">
+                                {{ form.password.label }}
+                            </div>
+                            {{ form.password(class="my-2 inputBox", placeholder="Pick a strong password") }}
+                        </div>
+                        <div class="form-row">
+                            {{ form.confirm_password(class="my-2 inputBox", placeholder="Confirm password") }}
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        {{ form.submit(class="register font-weight-bold my-4") }}
+                    </div>
+                    <p style="color: #9D9D9D; text-align: center; font-size: 18px;">Already have an account?  <a href="{{ url_for('login') }}" class="link">Log in</a></p>
                 </div>
-                <div class="form-row">
-                    <label for="email" class="control-label">Password</label>
-                    <input type="text" placeholder="Pick a strong password" name="password" class="my-2 inputBox" id="password">
-                </div>
-                <div class="form-row">
-                    <input type="text" placeholder="Confirm password" name="password_confirm" class="my-2 inputBox" id="password_confirm">
-                </div>
-                <button type="submit" class="register font-weight-bold my-4" id="registerButton">Create Account</button>
             </form>
-
-            <p style="color: #9D9D9D; text-align: center; font-size: 18px;">Already have an account?  <a href="http://127.0.0.1:5000/register/" class="link">Log in</a></p>
         </div>
-    </div>
+    {% endblock content %}
 </body>
 </html>
