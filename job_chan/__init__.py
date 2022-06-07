@@ -29,11 +29,12 @@ migrate = Migrate(app, db)
 
 
 # migrate database to latest revision
+if not os.path.isfile('database.db') and not os.path.isdir('migrations'):
+    init()
+
 stamp()
 migrate.init_app(app)
 upgrade()
-
-
 
 
 from job_chan import routes

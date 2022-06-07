@@ -96,11 +96,17 @@
         </div>
         <ul>
             <li>
-                <a href="#">
+                <a href="{{ url_for('home') }}">
                     <i class='bx bxs-dashboard'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
                 <!-- <span class="tooltip">Dashboard</span> -->
+            </li>
+            <li>
+                <a href="{{ url_for('about') }}">
+                    <i class='bx bx-align-left'></i>
+                    <span class="link_name">About</span>
+                </a>
             </li>
             <li>
                 <a href="#">
@@ -142,5 +148,10 @@
             {% endif %}
         </ul>
     </div>
+<!--    <div class="container">-->
+<!--        {% if has_jobs %}-->
+<!--            <h3>There is jobs here</h3>-->
+<!--        {% endif %}-->
+<!--    </div>-->
 </body>
 </html>

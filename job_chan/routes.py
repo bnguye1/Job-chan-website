@@ -4,12 +4,25 @@ from flask import render_template, session, redirect, url_for
 from .forms import RegistrationForm, LoginForm
 from . import db, login_manager
 from flask_login import login_required, logout_user, current_user
+from scrapers.update_jobs import get_list_of_jobs
+
+
+@app.route('/')
+def splash():
+    return render_template('splash.html')
 
 
 @app.route('/home')
 def home():
     return render_template('home.html')
 
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+# Add a donate option years beyond when this thing is done
 
 # Works, do not touch
 @app.route('/register', methods=['POST', 'GET'])

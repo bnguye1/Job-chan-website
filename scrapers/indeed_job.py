@@ -56,13 +56,13 @@ def extract_data(url):
         return jobs
 
 
-def start_scraping():
+def start_scraping(position, location):
     # Grab jobs from the first 5 pages in the search
     for i in range(0, 70, 10):
-        search = sys.argv[1]
-        search = search.replace('_', ' ')
+        # search = sys.argv[1]
+        # search = search.replace('_', ' ')
         # url = get_url('software engineer', 'maryland', i)
-        url = get_url(search, sys.argv[2], i)
+        url = get_url(position, location, i)
 
         job_list = extract_data(url)
 
@@ -86,6 +86,3 @@ def start_scraping():
 def cleanse_csv():
     with open('results.csv', 'r') as f, open('clean_results.csv', 'w') as out:
         out.writelines(unique_everseen(f))
-
-if __name__ == "__main__":
-    start_scraping()
