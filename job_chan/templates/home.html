@@ -15,6 +15,9 @@
     <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
     <style>
         * {
             box-sizing: border-box;
@@ -27,6 +30,30 @@
             width: 100%;
             overflow: hidden;
             background-color: #171717;
+        }
+        .col-lg {
+            width: 400px;
+            text-align: center;
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 190px 0;
+        }
+        .text {
+            color: #9D9D9D;
+        }
+        .buttons {
+            width: 200px;
+            margin: 0 auto;
+            display: inline;
+        }
+        .btn {
+            width: 200px;
+            margin: 0 auto;
+            display: inline;
         }
         .sidebar {
             position: fixed;
@@ -147,6 +174,15 @@
                 </li>
             {% endif %}
         </ul>
+    </div>
+    <div class="container">
+        <div class="col-lg">
+            <div class="buttons">
+                <form method="post">
+                    <input type="submit" name="get_jobs" value="Get Jobs">
+                </form>
+            </div>
+        </div>
     </div>
 <!--    <div class="container">-->
 <!--        {% if has_jobs %}-->

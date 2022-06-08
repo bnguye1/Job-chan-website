@@ -24,18 +24,19 @@ login_manager.login_message_category = "info"
 login_manager.init_app(app)
 db.init_app(app)
 app.app_context().push()
+
+from job_chan import routes
+from job_chan.models import User, Job
+
 db.create_all()
 migrate = Migrate(app, db)
-
 
 # migrate database to latest revision
 if not os.path.isfile('database.db') and not os.path.isdir('migrations'):
     init()
 
 stamp()
-migrate.init_app(app)
+migrate.init_app(app, db)
 upgrade()
 
 
-from job_chan import routes
-from job_chan.models import User, Job

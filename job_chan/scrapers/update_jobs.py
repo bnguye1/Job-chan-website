@@ -1,8 +1,6 @@
-from scrapers.indeed_job import start_scraping
+from .indeed_job import start_scraping
 import csv
-# import sys, os
-# import time
-#
+
 
 def get_list_of_jobs(position, location):
     start_scraping(position, location)

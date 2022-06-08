@@ -27,7 +27,7 @@ class Job(db.Model):
     location = db.Column(db.String, nullable=False)
     salary = db.Column(db.String, nullable=False)
     post_date = db.Column(db.String, nullable=False)
-    updated_date = db.Column(db.DateTime, nullable=False)
+    updated_date = db.Column(db.String, nullable=False)
     job_link = db.Column(db.String, nullable=False)
 
 
