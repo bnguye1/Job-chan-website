@@ -1,0 +1,61 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    background: #171717;
+    padding: 6px 14px;
+}
+.sidebar .text_logo .logo{
+    color: #FFF;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    margin: 0 25px;
+    transform: translateY(100%);
+}
+.text_logo .logo i {
+    font-size: 28px;
+    margin-right: 5px;
+}
+.text_logo .logo .logo_name{
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 25px;
+}
+.sidebar ul {
+    margin-top: 20px;
+}
+.sidebar ul li{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    list-style: none;
+    line-height: 50px;
+    transform: translateY(150%);
+}
+.sidebar ul li a{
+    color: #fff;
+    display: flex;
+    text-decoration: none;
+    transition: all 0.4s ease;
+}
+a:hover{
+    background: #2E34BB;
+    border-radius: 100px;
+    outline: solid 2px #2E34BB;
+}
+.sidebar ul li a i{
+    height: 50px;
+    min-width: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 24px;
+}
+.current_page {
+    color: #fff;
+    background: #2E34BB;
+    border-radius: 100px;
+}
+

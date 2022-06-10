@@ -15,6 +15,7 @@
     <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='register_style.css') }}" rel="stylesheet" type="text/css">
 
 </head>
@@ -46,6 +47,9 @@
                         {{ form.submit(class="register font-weight-bold my-4") }}
                     </div>
                     <p style="color: #9D9D9D; text-align: center; font-size: 18px;">Already have an account?  <a href="{{ url_for('login') }}" class="link">Log in</a></p>
+
+                    <p style="color: #9D9D9D; text-align: center; font-size: 18px;">Don't feel like making an account? <a
+                    href="{{ url_for('home') }}" class="link">Continue</a></p>
                 </div>
             </form>
         </div>

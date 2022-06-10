@@ -70,6 +70,7 @@ def register():
 # TTODO: Implement authentication backend
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    session.pop('user_id', None)
     form = LoginForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -90,4 +91,13 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
 
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html')
+
+
+@app.route('/saved', methods=['GET', 'POST'])
+def saved():
+    return render_template('saved.html')
 

@@ -15,69 +15,74 @@
     <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='home_style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='navbar_style.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static', filename='navbar.js') }}"></script>
+
 </head>
 <body>
-    <div class="sidebar">
-        <div class="text_logo">
-            <div class="logo">
-                <i class='bx bx-search-alt' ></i>
-                <div class="logo_name">Job-chan</div>
-            </div>
-        </div>
-        <ul>
-            <li>
-                <a href="{{ url_for('home') }}">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="link_name">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('about') }}">
-                    <i class='bx bx-align-left'></i>
-                    <span class="link_name">About</span>
-                </a>
-            </li>
-            {% if g.user %}
-                <li>
-                    <a href="#">
-                        <i class='bx bx-heart'></i>
-                        <span class="link_name">Saved Jobs</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-user'></i>
-                        <span class="link_name">Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url_for('logout') }}">
-                        <i class='bx bx-exit'></i>
-                        <span class="link_name">Logout</span>
-                    </a>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{{ url_for('login') }}">
-                        <i class='bx bx-exit'></i>
-                        <span class="link_name">Login</span>
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-    <div class="container">
-        <div class="col-lg">
-            <div class="buttons">
-                <form method="post">
-                    <input type="submit" class="btn btn-custom" name="get_jobs" value="Get Jobs">
-                </form>
-            </div>
+<div class="sidebar">
+    <div class="text_logo">
+        <div class="logo">
+            <i class='bx bx-search-alt'></i>
+            <div class="logo_name">Job-chan</div>
         </div>
     </div>
+    <ul>
+        <li class="current_page">
+            <a href="{{ url_for('home') }}">
+                <i class='bx bxs-dashboard'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ url_for('about') }}">
+                <i class='bx bx-align-left'></i>
+                <span class="link_name">About</span>
+            </a>
+        </li>
+        {% if g.user %}
+        <li class="">
+            <a href="{{ url_for('saved') }}">
+                <i class='bx bx-heart'></i>
+                <span class="link_name">Saved Jobs</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ url_for('profile') }}">
+                <i class='bx bx-user'></i>
+                <span class="link_name">Profile</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class='bx bx-exit'></i>
+                <span class="link_name">Logout</span>
+            </a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{{ url_for('login') }}">
+                <i class='bx bx-exit'></i>
+                <span class="link_name">Login</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<div class="container">
+    <div class="col-lg">
+        <div class="buttons">
+            <form method="post">
+                <input type="submit" class="btn btn-custom" name="get_jobs" value="Get Jobs">
+            </form>
+        </div>
+    </div>
+</div>
 <!--    <div class="container">-->
 <!--        {% if has_jobs %}-->
 <!--            <h3>There is jobs here</h3>-->
