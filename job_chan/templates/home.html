@@ -17,101 +17,7 @@
 
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            position: relative;
-            min-height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            background-color: #171717;
-        }
-        .col-lg {
-            width: 400px;
-            text-align: center;
-        }
-        .container {
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 190px 0;
-        }
-        .text {
-            color: #9D9D9D;
-        }
-        .buttons {
-            width: 200px;
-            margin: 0 auto;
-            display: inline;
-        }
-        .btn {
-            width: 200px;
-            margin: 0 auto;
-            display: inline;
-        }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background: #171717;
-            padding: 6px 14px;
-        }
-        .sidebar .text_logo .logo{
-            color: #FFF;
-            display: flex;
-            height: 50px;
-            width: 100%;
-            margin: 0 25px;
-            transform: translateY(100%);
-        }
-        .text_logo .logo i {
-            font-size: 28px;
-            margin-right: 5px;
-        }
-        .text_logo .logo .logo_name{
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 25px;
-        }
-        .sidebar ul {
-            margin-top: 20px;
-        }
-        .sidebar ul li{
-            position: relative;
-            height: 50px;
-            width: 100%;
-            list-style: none;
-            line-height: 50px;
-            transform: translateY(150%);
-        }
-        .sidebar ul li a{
-            color: #fff;
-            display: flex;
-            text-decoration: none;
-            transition: all 0.4s ease;
-        }
-        .sidebar ul li a:hover{
-            color: #fff;
-            background: #2E34BB;
-            border-radius: 100px;
-        }
-        .sidebar ul li a i{
-            height: 50px;
-            min-width: 50px;
-            line-height: 50px;
-            text-align: center;
-            font-size: 24px;
-        }
-
-    </style>
+    <link href="{{ url_for('static', filename='home_style.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="sidebar">
@@ -127,7 +33,6 @@
                     <i class='bx bxs-dashboard'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
-                <!-- <span class="tooltip">Dashboard</span> -->
             </li>
             <li>
                 <a href="{{ url_for('about') }}">
@@ -135,34 +40,24 @@
                     <span class="link_name">About</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-search-alt-2' ></i>
-                    <span class="link_name">Search Job</span>
-                </a>
-                <!-- <span class="tooltip">Search Job</span> -->
-            </li>
-            {% if data %}
+            {% if g.user %}
                 <li>
                     <a href="#">
                         <i class='bx bx-heart'></i>
                         <span class="link_name">Saved Jobs</span>
                     </a>
-                    <!-- <span class="tooltip">Saved Jobs</span> -->
                 </li>
                 <li>
                     <a href="#">
                         <i class='bx bx-user'></i>
                         <span class="link_name">Profile</span>
                     </a>
-                    <!-- <span class="tooltip">Profile</span> -->
                 </li>
                 <li>
                     <a href="{{ url_for('logout') }}">
                         <i class='bx bx-exit'></i>
                         <span class="link_name">Logout</span>
                     </a>
-                    <!-- <span class="tooltip">Profile</span> -->
                 </li>
             {% else %}
                 <li>
@@ -170,7 +65,6 @@
                         <i class='bx bx-exit'></i>
                         <span class="link_name">Login</span>
                     </a>
-                    <!-- <span class="tooltip">Profile</span> -->
                 </li>
             {% endif %}
         </ul>
@@ -179,7 +73,7 @@
         <div class="col-lg">
             <div class="buttons">
                 <form method="post">
-                    <input type="submit" name="get_jobs" value="Get Jobs">
+                    <input type="submit" class="btn btn-custom" name="get_jobs" value="Get Jobs">
                 </form>
             </div>
         </div>

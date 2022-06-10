@@ -1,10 +1,16 @@
 from job_chan import app
-from job_chan.models import User, load_user, Job
-from flask import request, render_template, redirect, url_for
+from job_chan.models import User, Job
+from flask import g, request, render_template, redirect, url_for, session
 from .forms import RegistrationForm, LoginForm
-from . import db, login_manager
-from flask_login import logout_user, current_user
+from . import db
 from job_chan.scrapers.update_jobs import get_list_of_jobs
+
+
+@app.before_request
+def before_request():
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+        g.user = user
 
 
 @app.route('/')
@@ -18,7 +24,6 @@ def home():
         # print(request.form)
         if "get_jobs" in request.form:
             jobs = get_list_of_jobs('software_engineer', 'maryland')
-            #print(jobs)
             print('they want jobs')
 
             for job in jobs:
@@ -28,6 +33,9 @@ def home():
                 db.session.commit()
         else:
             print('they want something else')
+
+        return redirect(url_for('home'))
+
     return render_template('home.html')
 
 
@@ -61,24 +69,25 @@ def register():
 # Isn't working entirely at all
 # TTODO: Implement authentication backend
 @app.route('/login', methods=['POST', 'GET'])
-@login_manager.user_loader
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        some_user = User.query.filter_by(email=form.email.data).first()
-        if some_user.check_password(form.password.data):
-            load_user(some_user.id)
-            data = some_user
-            return render_template('home.html', data=data)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            try:
+                some_user = User.query.filter_by(email=form.email.data).first()
+                if some_user.check_password(form.password.data):
+                    session['user_id'] = some_user.id
+                    return redirect(url_for('home'))
 
-    return render_template('login.html', form=form)
+            except Exception:
+                return redirect(url_for('login'))
+    else:
+        return render_template('login.html', form=form)
 
 
 @app.route('/logout', methods=['GET'])
 def logout():
-    if current_user.is_authenticated:
-        logout_user()
-        return redirect(url_for('logout'))
-    else:
-        return redirect(url_for('login'))
+    session.pop('user_id', None)
+    return redirect(url_for('login'))
+
 

@@ -1,15 +1,13 @@
 from job_chan import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, LoginManager
-
-login = LoginManager()
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, nullable=False)
     password_hash = db.Column(db.String, nullable=False)
+    jobs = db.Column(db.String, default='[]', nullable=False)
 
     def __init__(self, email, password):
         self.email = email
@@ -29,9 +27,3 @@ class Job(db.Model):
     post_date = db.Column(db.String, nullable=False)
     updated_date = db.Column(db.String, nullable=False)
     job_link = db.Column(db.String, nullable=False)
-
-
-@login.user_loader
-def load_user(ids):
-    return User.query.get(int(ids))
-
