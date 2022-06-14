@@ -20,6 +20,10 @@ def splash():
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
+
+    data = {
+        'jobs': Job.query.all()
+    }
     if request.method == 'POST':
         # print(request.form)
         if "get_jobs" in request.form:
@@ -31,12 +35,16 @@ def home():
                             post_date=job[4], updated_date=job[5], job_link=job[6])
                 db.session.add(a_job)
                 db.session.commit()
+
+            return redirect(url_for('home'))
+
         else:
             print('they want something else')
+            data = {
+                'jobs': Job.query.all()
+            }
 
-        return redirect(url_for('home'))
-
-    return render_template('home.html')
+    return render_template('home.html', data=data)
 
 
 @app.route('/about')
@@ -60,8 +68,8 @@ def register():
                 db.session.commit()
                 return redirect(url_for('login'))
 
-        else:
-            message = "A user associated with that email already exists!"
+        # else:
+        #     message = "A user associated with that email already exists!"
 
     return render_template('register.html', form=form, message=message)
 

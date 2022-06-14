@@ -21,7 +21,7 @@
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='home_style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='navbar_style.css') }}" rel="stylesheet" type="text/css">
-    <script src="{{ url_for('static', filename='navbar.js') }}"></script>
+
 
 </head>
 <body>
@@ -80,13 +80,16 @@
             <form method="post">
                 <input type="submit" class="btn btn-custom" name="get_jobs" value="Get Jobs">
             </form>
+            <form method="post">
+                <input type="submit" class="btn btn-custom" name="refresh" value="Refresh">
+            </form>
         </div>
     </div>
 </div>
-<!--    <div class="container">-->
-<!--        {% if has_jobs %}-->
-<!--            <h3>There is jobs here</h3>-->
-<!--        {% endif %}-->
-<!--    </div>-->
+<div class="container">
+    {% if data.jobs %}
+    <p>{{ data.jobs[1].job_title }}</p>
+    {% endif %}
+</div>
 </body>
 </html>
