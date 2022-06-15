@@ -9,7 +9,6 @@ from more_itertools import unique_everseen
 import csv
 import requests
 import re
-import sys
 
 
 def get_url(position, location, page):
@@ -71,22 +70,21 @@ def start_scraping(position, location):
 
         # The file doesn't exist
         if not Path('results.csv').is_file():
-            with open('results.csv', 'w', newline='') as f:
+            with open('results.csv', 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
-                #writer.writerow(['JobTitle', 'Company', 'Location', 'Salary', 'PostDate', 'ExtractDate', 'JobURL'])
                 writer.writerows(job_list)
 
         # The file exists
         else:
-            with open('results.csv', 'a', newline='') as f:
+            with open('results.csv', 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerows(job_list)
 
-        cleanse_csv()
+    cleanse_csv()
 
 
 # Removes the duplicates from the job list
 def cleanse_csv():
-    with open('results.csv', 'r') as f, open('clean_results.csv', 'w') as out:
+    with open('results.csv', 'r', encoding='utf-8') as f, open('clean_results.csv', 'w', encoding='utf-8') as out:
         out.writelines(unique_everseen(f))
 

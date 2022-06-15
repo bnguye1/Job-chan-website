@@ -17,10 +17,13 @@ def before_request():
 def splash():
     return render_template('splash.html')
 
+
 """
 https://blog.miguelgrinberg.com/post/beautiful-interactive-tables-for-your-flask-templates
 Borrowed server-driven table template from https://github.com/miguelgrinberg/flask-tables
 """
+
+
 @app.route('/data')
 def data():
     query = Job.query
@@ -74,19 +77,27 @@ def home():
     data2 = {
         'jobs': Job.query.all()
     }
+
     form = SearchForm()
     if request.method == 'POST':
-        # print(request.form)
-        if "get_jobs" in request.form:
-            jobs = get_list_of_jobs('software_engineer', 'maryland')
+        if "search_jobs" in request.form:
+            if form.validate_on_submit():
+                position = form.position.data
+                location = form.location.data
+                print(position, location)
+                jobs = get_list_of_jobs(position, location)
 
-            for job in jobs:
-                a_job = Job(job_title=job[0], company=job[1], location=job[2], salary=job[3],
-                            post_date=job[4], updated_date=job[5], job_link=job[6])
-                db.session.add(a_job)
-                db.session.commit()
+                for job in jobs:
 
-            return redirect(url_for('home'))
+                    a_job = Job(job_title=job[0], company=job[1], location=job[2], salary=job[3],
+                                post_date=job[4], updated_date=job[5], job_link=job[6])
+
+                    if not Job.query.filter_by(job_title=job[0], company=job[1], location=job[2], salary=job[3],
+                                               post_date=job[4], updated_date=job[5], job_link=job[6]).first():
+                        db.session.add(a_job)
+                        db.session.commit()
+
+        return redirect(url_for('home'))
 
     return render_template('home.html', form=form, data=data2)
 
@@ -152,4 +163,3 @@ def profile():
 @app.route('/saved', methods=['GET', 'POST'])
 def saved():
     return render_template('saved.html')
-

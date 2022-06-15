@@ -21,6 +21,7 @@
     <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='home_style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='navbar_style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='login_style.css') }}" rel="stylesheet" type="text/css">
 
     <!-- dataTables.js -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
@@ -81,14 +82,33 @@
 </div>
 <div class="container">
     <div class="col-lg">
-        <div class="buttons">
-            <form method="post">
-                <input type="submit" class="btn btn-custom" name="get_jobs" value="Get Jobs">
-            </form>
-            <form method="post">
-                <input type="submit" class="btn btn-custom" name="refresh" value="Refresh">
-            </form>
-        </div>
+        <h2 class="title">Search for jobs</h2>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-row">
+                    {{ form.position(class="my-2 inputBox", style="width: 600px;", placeholder="Ex: software engineer, intern, doctor, ...") }}
+                </div>
+                <div class="form-row">
+                    {{ form.location(class="my-2 inputBox", style="width: 600px;", placeholder="Ex: virginia, maryland, california, texas, ...") }}
+                </div>
+            </fieldset>
+            <div class="buttons">
+                <input type="submit" class="btn btn-custom" name="search_jobs" value="Search">
+            </div>
+        </form>
+<!--        <div class="buttons">-->
+<!--            <a href="{{ url_for('home') }}"><button type="submit" class="btn btn-custom" name="refresh" value="Refresh"></a>-->
+<!--        </div>-->
+
+
+<!--            <form method="post">-->
+<!--                <input type="submit" class="btn btn-custom" name="get_jobs" value="Get Jobs">-->
+<!--            </form>-->
+<!--            <form method="post">-->
+<!--                <input type="submit" class="btn btn-custom" name="refresh" value="Refresh">-->
+<!--            </form>-->
+<!--        </div>-->
     </div>
 </div>
 {% block content %}
@@ -129,7 +149,7 @@
 
           $('#jobs tbody').on('click', 'button', function() {
             var data = table.row($(this).parents('tr')).data();
-            console.log(data.listing);
+            // console.log(data.listing);
             window.open(data.listing, '_blank');
           });
         });

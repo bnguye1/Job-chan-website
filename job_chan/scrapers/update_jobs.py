@@ -5,7 +5,7 @@ import csv
 def get_list_of_jobs(position, location):
     start_scraping(position, location)
     jobs = []
-    with open('clean_results.csv', mode='r') as file:
+    with open('clean_results.csv', mode='r', encoding='utf-8') as file:
         csvfile = csv.reader(file)
 
         for job in csvfile:

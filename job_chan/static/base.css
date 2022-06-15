@@ -19,7 +19,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 190px 0;
 }
 .text {
     color: #9D9D9D;
