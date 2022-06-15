@@ -50,6 +50,9 @@ def extract_data(url):
             today = datetime.today().strftime('%m-%d-%Y')
 
             if "pagead" not in job_url:
+                if "PostedToday" in post_date or "PostedJust posted" in post_date:
+                    post_date = "Today"
+
                 data = (job, company, location, salary, post_date, today, job_url)
                 jobs.append(data)
 
@@ -70,7 +73,7 @@ def start_scraping(position, location):
         if not Path('results.csv').is_file():
             with open('results.csv', 'w', newline='') as f:
                 writer = csv.writer(f)
-                writer.writerow(['JobTitle', 'Company', 'Location', 'Salary', 'PostDate', 'ExtractDate', 'JobURL'])
+                #writer.writerow(['JobTitle', 'Company', 'Location', 'Salary', 'PostDate', 'ExtractDate', 'JobURL'])
                 writer.writerows(job_list)
 
         # The file exists
@@ -86,3 +89,4 @@ def start_scraping(position, location):
 def cleanse_csv():
     with open('results.csv', 'r') as f, open('clean_results.csv', 'w') as out:
         out.writelines(unique_everseen(f))
+

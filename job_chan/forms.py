@@ -16,3 +16,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Login')
+
+
+class SearchForm(FlaskForm):
+    position = StringField('Job Position', validators=[DataRequired()])
+    location = StringField('Job Location', validators=[DataRequired()])

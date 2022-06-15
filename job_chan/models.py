@@ -27,3 +27,15 @@ class Job(db.Model):
     post_date = db.Column(db.String, nullable=False)
     updated_date = db.Column(db.String, nullable=False)
     job_link = db.Column(db.String, nullable=False)
+
+    def to_dict(self):
+        return {
+            'position': self.job_title,
+            'company': self.company,
+            'location': self.location,
+            'salary': self.salary,
+            'posted': self.post_date,
+            'listing': self.job_link
+
+        }
+

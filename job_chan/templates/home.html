@@ -22,6 +22,11 @@
     <link href="{{ url_for('static', filename='home_style.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ url_for('static', filename='navbar_style.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- dataTables.js -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
 
 </head>
 <body>
@@ -86,10 +91,49 @@
         </div>
     </div>
 </div>
+{% block content %}
 <div class="container">
-    {% if data.jobs %}
-    <p>{{ data.jobs[1].job_title }}</p>
-    {% endif %}
+    <table id="jobs" class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="table-heading">Position</th>
+                <th class="table-heading">Company</th>
+                <th class="table-heading">Location</th>
+                <th class="table-heading">Salary</th>
+                <th class="table-heading">Posted</th>
+                <th class="table-heading">Listing</th>
+            </tr>
+        </thead>
+    </table>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+          var table = $('#jobs').DataTable({
+            ajax: '/data',
+            serverSide: true,
+            columns: [
+              {data: 'position', orderable: false},
+              {data: 'company', orderable: true},
+              {data: 'location', orderable: true},
+              {data: 'salary', orderable: false},
+              {data: 'posted'},
+              {
+                data: null,
+                defaultContent: '<button class="btn2">Apply</button>', orderable: false
+              }
+            ],
+          });
+
+          $('#jobs tbody').on('click', 'button', function() {
+            var data = table.row($(this).parents('tr')).data();
+            console.log(data.listing);
+            window.open(data.listing, '_blank');
+          });
+        });
+    </script>
+{% endblock %}
 </body>
 </html>

@@ -34,6 +34,16 @@ body {
     margin: 0 auto;
     display: inline;
 }
+.btn2 {
+    width: 100px;
+    margin: 0 auto;
+    display: inline;
+    border: none;
+    outline: none;
+    height: 50px;
+    background-image: linear-gradient(to bottom, #2E34C1, #282D85);
+    color: white;
+}
 .btn-custom {
     border: none;
     outline: none;

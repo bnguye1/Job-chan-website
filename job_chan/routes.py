@@ -1,7 +1,7 @@
 from job_chan import app
 from job_chan.models import User, Job
 from flask import g, request, render_template, redirect, url_for, session
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, SearchForm
 from . import db
 from job_chan.scrapers.update_jobs import get_list_of_jobs
 
@@ -17,18 +17,68 @@ def before_request():
 def splash():
     return render_template('splash.html')
 
+"""
+https://blog.miguelgrinberg.com/post/beautiful-interactive-tables-for-your-flask-templates
+Borrowed server-driven table template from https://github.com/miguelgrinberg/flask-tables
+"""
+@app.route('/data')
+def data():
+    query = Job.query
+
+    # search filter
+    search = request.args.get('search[value]')
+    if search:
+        query = query.filter(db.or_(
+            Job.job_title.like(f'%{search}%'),
+            Job.location.like(f'%{search}%'),
+            Job.company.like(f'%{search}%'),
+            Job.post_date.like(f'%{search}%')
+        ))
+    total_filtered = query.count()
+
+    # sorting
+    order = []
+    i = 0
+    while True:
+        col_index = request.args.get(f'order[{i}][column]')
+        if col_index is None:
+            break
+        col_name = request.args.get(f'columns[{col_index}][data]')
+        if col_name not in ['job_title', 'company', 'location', 'salary', 'post_date', 'job_link']:
+            col_name = 'job_title'
+        descending = request.args.get(f'order[{i}][dir]') == 'desc'
+        col = getattr(Job, col_name)
+        if descending:
+            col = col.desc()
+        order.append(col)
+        i += 1
+    if order:
+        query = query.order_by(*order)
+
+    # pagination
+    start = request.args.get('start', type=int)
+    length = request.args.get('length', type=int)
+    query = query.offset(start).limit(length)
+
+    # response
+    return {
+        'data': [user.to_dict() for user in query],
+        'recordsFiltered': total_filtered,
+        'recordsTotal': User.query.count(),
+        'draw': request.args.get('draw', type=int),
+    }
+
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
-
-    data = {
+    data2 = {
         'jobs': Job.query.all()
     }
+    form = SearchForm()
     if request.method == 'POST':
         # print(request.form)
         if "get_jobs" in request.form:
             jobs = get_list_of_jobs('software_engineer', 'maryland')
-            print('they want jobs')
 
             for job in jobs:
                 a_job = Job(job_title=job[0], company=job[1], location=job[2], salary=job[3],
@@ -38,13 +88,7 @@ def home():
 
             return redirect(url_for('home'))
 
-        else:
-            print('they want something else')
-            data = {
-                'jobs': Job.query.all()
-            }
-
-    return render_template('home.html', data=data)
+    return render_template('home.html', form=form, data=data2)
 
 
 @app.route('/about')
