@@ -15,132 +15,134 @@
     <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            position: relative;
-            min-height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            background-color: #171717;
-        }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background: #171717;
-            padding: 6px 14px;
-        }
-        .sidebar .text_logo .logo{
-            color: #FFF;
-            display: flex;
-            height: 50px;
-            width: 100%;
-            margin: 0 25px;
-            transform: translateY(100%);
-        }
-        .text_logo .logo i {
-            font-size: 28px;
-            margin-right: 5px;
-        }
-        .text_logo .logo .logo_name{
-            font-size: 24px;
-            font-weight: 400;
-            line-height: 25px;
-        }
-        .sidebar ul {
-            margin-top: 20px;
-        }
-        .sidebar ul li{
-            position: relative;
-            height: 50px;
-            width: 100%;
-            list-style: none;
-            line-height: 50px;
-            transform: translateY(150%);
-        }
-        .sidebar ul li a{
-            color: #fff;
-            display: flex;
-            text-decoration: none;
-            transition: all 0.4s ease;
-        }
-        .sidebar ul li a:hover{
-            color: #fff;
-            background: #2E34BB;
-            border-radius: 100px;
-        }
-        .sidebar ul li a i{
-            height: 50px;
-            min-width: 50px;
-            line-height: 50px;
-            text-align: center;
-            font-size: 24px;
-        }
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-    </style>
+    <link href="{{ url_for('static', filename='base.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='home_style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='navbar_style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='login_style.css') }}" rel="stylesheet" type="text/css">
+
+    <!-- dataTables.js -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+
 </head>
 <body>
-    <div class="sidebar">
-        <div class="text_logo">
-            <div class="logo">
-                <i class='bx bx-search-alt' ></i>
-                <div class="logo_name">Job-chan</div>
-            </div>
+<div class="sidebar">
+    <div class="text_logo">
+        <div class="logo">
+            <i class='bx bx-search-alt'></i>
+            <div class="logo_name">Job-chan</div>
         </div>
-        <ul>
-            <li>
-                <a href="#">
-                    <i class='bx bxs-dashboard'></i>
-                    <span class="link_name">Dashboard</span>
-                </a>
-                <!-- <span class="tooltip">Dashboard</span> -->
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-search-alt-2' ></i>
-                    <span class="link_name">Search Job</span>
-                </a>
-                <!-- <span class="tooltip">Search Job</span> -->
-            </li>
-            {% if data %}
-                <li>
-                    <a href="#">
-                        <i class='bx bx-heart'></i>
-                        <span class="link_name">Saved Jobs</span>
-                    </a>
-                    <!-- <span class="tooltip">Saved Jobs</span> -->
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-user'></i>
-                        <span class="link_name">Profile</span>
-                    </a>
-                    <!-- <span class="tooltip">Profile</span> -->
-                </li>
-                <li>
-                    <a href="{{ url_for('logout') }}">
-                        <i class='bx bx-exit'></i>
-                        <span class="link_name">Logout</span>
-                    </a>
-                    <!-- <span class="tooltip">Profile</span> -->
-                </li>
-            {% else %}
-                <li>
-                    <a href="{{ url_for('login') }}">
-                        <i class='bx bx-exit'></i>
-                        <span class="link_name">Login</span>
-                    </a>
-                    <!-- <span class="tooltip">Profile</span> -->
-                </li>
-            {% endif %}
-        </ul>
     </div>
+    <ul>
+        <li class="current_page">
+            <a href="{{ url_for('home') }}">
+                <i class='bx bxs-dashboard'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ url_for('about') }}">
+                <i class='bx bx-align-left'></i>
+                <span class="link_name">About</span>
+            </a>
+        </li>
+        {% if g.user %}
+        <li class="">
+            <a href="{{ url_for('saved') }}">
+                <i class='bx bx-heart'></i>
+                <span class="link_name">Saved Jobs</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="{{ url_for('profile') }}">
+                <i class='bx bx-user'></i>
+                <span class="link_name">Profile</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}">
+                <i class='bx bx-exit'></i>
+                <span class="link_name">Logout</span>
+            </a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{{ url_for('login') }}">
+                <i class='bx bx-exit'></i>
+                <span class="link_name">Login</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<div class="container">
+    <div class="col-lg">
+        <h2 class="title">Search for jobs</h2>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-row">
+                    {{ form.position(class="my-2 inputBox", style="width: 600px;", placeholder="Job title, keywords, or company") }}
+                </div>
+                <div class="form-row">
+                    {{ form.location(class="my-2 inputBox", style="width: 600px;", placeholder="City, state, zip code, or remote") }}
+                </div>
+            </fieldset>
+            <div class="buttons">
+                <input type="submit" class="btn btn-custom" name="search_jobs" value="Search">
+            </div>
+        </form>
+    </div>
+</div>
+{% block content %}
+<h2 class="title">Available Jobs</h2>
+<div class="container" style="transform: translateY(-15%);">
+    <table id="jobs" class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="table-heading">Position</th>
+                <th class="table-heading">Company</th>
+                <th class="table-heading">Location</th>
+                <th class="table-heading">Salary</th>
+                <th class="table-heading">Posted</th>
+                <th class="table-heading">Listing</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+          var table = $('#jobs').DataTable({
+            ajax: '/data',
+            serverSide: true,
+            columns: [
+              {data: 'position', orderable: false},
+              {data: 'company', orderable: true},
+              {data: 'location', orderable: true},
+              {data: 'salary', orderable: false},
+              {data: 'posted'},
+              {
+                data: null,
+                defaultContent: '<button class="btn2">Apply</button>', orderable: false
+              }
+            ],
+          });
+
+          $('#jobs tbody').on('click', 'button', function() {
+            var data = table.row($(this).parents('tr')).data();
+            // console.log(data.listing);
+            window.open(data.listing, '_blank');
+          });
+        });
+    </script>
+{% endblock %}
 </body>
 </html>

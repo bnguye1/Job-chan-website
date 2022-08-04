@@ -9,7 +9,6 @@ from more_itertools import unique_everseen
 import csv
 import requests
 import re
-import sys
 
 
 def get_url(position, location, page):
@@ -50,42 +49,42 @@ def extract_data(url):
             today = datetime.today().strftime('%m-%d-%Y')
 
             if "pagead" not in job_url:
+                if "PostedToday" in post_date or "PostedJust posted" in post_date:
+                    post_date = "Today"
+
                 data = (job, company, location, salary, post_date, today, job_url)
                 jobs.append(data)
 
         return jobs
 
 
-def start_scraping():
+def start_scraping(position, location):
     # Grab jobs from the first 5 pages in the search
     for i in range(0, 70, 10):
-        search = sys.argv[1]
-        search = search.replace('_', ' ')
+        # search = sys.argv[1]
+        # search = search.replace('_', ' ')
         # url = get_url('software engineer', 'maryland', i)
-        url = get_url(search, sys.argv[2], i)
+        url = get_url(position, location, i)
 
         job_list = extract_data(url)
 
         # The file doesn't exist
         if not Path('results.csv').is_file():
-            with open('results.csv', 'w', newline='') as f:
+            with open('results.csv', 'w', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
-                writer.writerow(['JobTitle', 'Company', 'Location', 'Salary', 'PostDate', 'ExtractDate', 'JobURL'])
                 writer.writerows(job_list)
 
         # The file exists
         else:
-            with open('results.csv', 'a', newline='') as f:
+            with open('results.csv', 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerows(job_list)
 
-        cleanse_csv()
+    cleanse_csv()
 
 
 # Removes the duplicates from the job list
 def cleanse_csv():
-    with open('results.csv', 'r') as f, open('clean_results.csv', 'w') as out:
+    with open('results.csv', 'r', encoding='utf-8') as f, open('clean_results.csv', 'w', encoding='utf-8') as out:
         out.writelines(unique_everseen(f))
 
-if __name__ == "__main__":
-    start_scraping()
