@@ -1,5 +1,7 @@
 from .indeed_job import start_scraping
+from pathlib import Path
 import csv
+import os
 
 
 def get_list_of_jobs(position, location):
@@ -12,4 +14,12 @@ def get_list_of_jobs(position, location):
             jobs.append(job)
 
     return jobs
+
+
+def delete_csv():
+    if Path('clean_results.csv').is_file:
+        os.remove('clean_results.csv')
+
+    if Path('results.csv').is_file:
+        os.remove('results.csv')
 

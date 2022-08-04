@@ -3,7 +3,7 @@ from job_chan.models import User, Job
 from flask import g, request, render_template, redirect, url_for, session
 from .forms import RegistrationForm, LoginForm, SearchForm
 from . import db
-from job_chan.scrapers.update_jobs import get_list_of_jobs
+from job_chan.scrapers.update_jobs import get_list_of_jobs, delete_csv
 
 
 @app.before_request
@@ -96,6 +96,9 @@ def home():
                                                post_date=job[4], updated_date=job[5], job_link=job[6]).first():
                         db.session.add(a_job)
                         db.session.commit()
+
+                # Delete the CSV files
+                delete_csv()
 
         return redirect(url_for('home'))
 
