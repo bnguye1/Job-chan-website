@@ -1,0 +1,57 @@
+
+        .control-label {
+            color: #fff;
+            margin: 0 auto;
+        }
+        .register {
+            border: none;
+            outline: none;
+            height: 50px;
+            width: 100%;
+            background-image: linear-gradient(to bottom, #2E34C1, #282D85);
+            color: white;
+            border-radius: 5px
+        }
+        .inputBox {
+            border: none;
+            outline: solid 1px #8A8A8A;
+            height: 50px;
+            width: 100%;
+            background: #171717;
+            border-radius: 5px;
+            color: white;
+            padding: 20px;
+        }
+        .inputBox:focus-within {
+            background: #171717;
+
+            outline: solid 2px #2E34BB;
+        }
+        .link {
+            text-decoration: none;
+            color: #2E34BB;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .label {
+            color: #fff;
+            display: inline-block;
+            text-align: left;
+            float: left;
+            padding-top: 20px;
+        }
+        .col-lg {
+            width: 400px;
+        }
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 190px 0;
+        }
+        .title {
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }

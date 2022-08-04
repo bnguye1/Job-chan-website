@@ -1,0 +1,38 @@
+.table {
+    color: #949494;
+    border-color: #949494;
+    background-color: #171717;
+}
+.table-heading {
+    color: #fff;
+}
+
+table.dataTable {
+
+}
+
+.dataTables_info, .dataTables_length, .dataTables_filter {
+    color: #949494;
+}
+
+.pagination a{
+    text-decoration: none;
+    border: none;
+    color: #000000;
+}
+.pagination a:hover {
+    background: #2E34BB;
+    color: #fff;
+}
+.form-control {
+    background: #101010;
+    color: #fff;
+    outline: solid 1px #8A8A8A;
+    border: none;
+}
+.form-control:focus-within {
+    background: #171717;
+    color: #fff;
+    outline: solid 2px #2E34BB;
+    border: none;
+}
