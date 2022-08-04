@@ -1,0 +1,18 @@
+
+        .title {
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 64px;
+        }
+        .bx {
+            color: #fff;
+            font-size: 106px;
+        }
+        .text {
+            color: #9D9D9D;
+        }
+        .card {
+            width: 18rem;
+        }

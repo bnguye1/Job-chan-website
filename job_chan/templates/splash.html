@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Welcome</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Boxicons CDN Link -->
+    <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="{{ url_for('static', filename='splash_style.css') }}" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    {% block content %}
+        <div class="container">
+            <div class="col-lg">
+                <i class='bx bx-search-alt' ></i>
+                <h2 class="title">Job-chan</h2>
+                <p class="text" style="font-size: 18px; padding-bottom: 20px;">Need some help in your job hunt? Don’t worry, Job-chan is here to be your best friend!</p>
+                <p class="text" style="font-size: 18px; padding-bottom: 20px;">You can start searching for jobs without an account OR you can create an account and save any jobs you see.</p>
+                <div class="buttons">
+                    <div class="btn">
+                        <a href="{{ url_for('home') }}" style="text-decoration: none;"><button class="btn btn-custom">Search jobs</button></a>
+                        <a href="{{ url_for('register') }}" style="text-decoration: none;"><button class="btn btn-custom-2">Create account</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>

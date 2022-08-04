@@ -2,3 +2,9 @@
 
 ## About
 WIP....
+
+
+## Sites
+- ZipRecruiter
+- Indeed
+- LinkedIn
